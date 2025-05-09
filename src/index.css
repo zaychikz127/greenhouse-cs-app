@@ -1,0 +1,10 @@
+
+body {
+  font-family: 'Kanit', sans-serif;
+}
+
+* {
+  font-family: 'Kanit', sans-serif;
+  font-weight: normal;
+  box-sizing: border-box;
+}
