@@ -20,6 +20,8 @@ const Showcase = () => {
 
   return (
     <div className={styles.container}>
+      <h2 className={styles.title}>Welcome to Greenhouse CS MSU</h2>
+      <p className={styles.description}>ยินดีต้อนรับสู่ระบบจัดการการปลูกพืชแบบ Aeroponic</p>
       <Galleria
         value={images}
         item={itemTemplate}
@@ -27,6 +29,7 @@ const Showcase = () => {
         circular
         showItemNavigators
         style={{ width: '100%' }}
+        className={styles.galleriaWrapper}
       />
     </div>
   );

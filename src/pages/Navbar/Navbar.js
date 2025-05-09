@@ -20,20 +20,16 @@ const Navbar = () => {
     }
   ];
 
-  const start = (
-    <img alt="logo" src="/greenhouse-icon.png" height="30" className={styles.logo} />
-  );
-
   const end = (
     <div className={styles.buttons}>
-      <Button label="ติดต่อเรา" icon="pi pi-phone" className="p-button-text p-button-sm" />
+      <Button label="ติดต่อเรา" icon="pi pi-phone" className="p-button-text p-button-sm p-button-secondary" />
       <Button label="เข้าสู่ระบบ" icon="pi pi-user" className="p-button-sm" onClick={() => navigate('/login')}/>
     </div>
   );
 
   return (
     <div className={styles.sticky}>
-      <Menubar model={items} start={start} end={end} />
+      <Menubar model={items} end={end} />
     </div>
   );
 };

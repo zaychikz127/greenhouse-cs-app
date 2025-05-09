@@ -4,11 +4,6 @@
   z-index: 1000;
 }
 
-.logo {
-  margin-right: 1rem;
-  margin-left: 1rem;
-}
-
 .buttons {
   display: flex;
   align-items: center;
