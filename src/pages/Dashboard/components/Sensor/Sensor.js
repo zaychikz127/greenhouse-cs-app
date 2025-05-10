@@ -15,7 +15,7 @@ const Sensor = () => {
       { label: 'อุณหภูมิ', value: '25°C', icon: 'pi pi-wave-pulse' },
       { label: 'ความชื้น', value: '60%', icon: 'pi pi-cloud' },
       { label: 'ความเข้มแสง', value: '50%', icon: 'pi pi-sun' },
-      { label: 'รอบการหมุนแท่นปลูก', value: '5 rpm', icon: 'pi pi-sync' },
+      { label: 'รอบการหมุน', value: '5 rpm', icon: 'pi pi-sync' },
     ],
     system2: null, // ไม่มีข้อมูล
   };
@@ -39,12 +39,14 @@ const Sensor = () => {
           { label: 'อุณหภูมิ', value: 'ออฟไลน์', icon: 'pi pi-wave-pulse' },
           { label: 'ความชื้น', value: 'ออฟไลน์', icon: 'pi pi-cloud' },
           { label: 'ความเข้มแสง', value: 'ออฟไลน์', icon: 'pi pi-sun' },
-          { label: 'รอบการหมุนแท่นปลูก', value: 'ออฟไลน์', icon: 'pi pi-sync' },
+          { label: 'รอบการหมุน', value: 'ออฟไลน์', icon: 'pi pi-sync' },
         ]).map((card, index) => (
           <div key={index} className={styles.card}>
             <i className={`${card.icon} ${styles.icon}`}></i>
             <div className={styles.label}>{card.label}</div>
-            <div className={styles.value}>{card.value}</div>
+            <div className={`${styles.value} ${card.value === 'ออฟไลน์' ? styles.offline : ''}`} >
+              {card.value}
+            </div>
           </div>
         ))}
       </div>

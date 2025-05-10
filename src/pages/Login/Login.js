@@ -35,6 +35,7 @@ const Login = () => {
                     <Button
                         label="เข้าสู่ระบบ"
                         className={styles.loginButton}
+                        onClick={() => navigate('/dashboard-admin')}
                     />
                 </div>
 

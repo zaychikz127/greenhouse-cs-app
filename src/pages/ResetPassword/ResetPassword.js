@@ -1,27 +1,31 @@
 import React from 'react';
-import { InputOtp } from 'primereact/inputotp';
+import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { useNavigate } from 'react-router-dom';
-import styles from './OtpInputPage.module.css';
+import styles from './ResetPassword.module.css';
 
-const OtpInputPage = () => {
+const ResetPassword = () => {
     const navigate = useNavigate();
 
     return (
         <div className={styles.container}>
             <div className={styles.card}>
-                <h2 className={styles.title}>กรอกรหัส OTP</h2>
+                <h2 className={styles.title}>ตั้งค่ารหัสผ่านใหม่</h2>
 
                 <div className={styles.inputGroup}>
-                    <label htmlFor="otp">เราได้ส่งรหัส OTP ไปยังอีเมลของคุณเรียบร้อยแล้ว</label>
-                    <InputOtp id="otp" length={6} className={styles.input} integerOnly/>
+                    <label htmlFor="password">รหัสผ่านใหม่</label>
+                    <InputText id="password" type='password' className={styles.input} />
+                </div>
+
+                <div className={styles.inputGroup}>
+                    <label htmlFor="ConfirmPassword">กรอกรหัสผ่านใหม่อีกครั้ง</label>
+                    <InputText id="ConfirmPassword" type='password' className={styles.input} />
                 </div>
 
                 <div className={styles.submitButtonWrapper}>
                     <Button
-                        label="ตรวจสอบ"
+                        label="ยืนยัน"
                         className={styles.submitButton}
-                        onClick={() => navigate('/reset-password')}
                     />
                 </div>
 
@@ -38,4 +42,4 @@ const OtpInputPage = () => {
     );
 };
 
-export default OtpInputPage;
+export default ResetPassword;

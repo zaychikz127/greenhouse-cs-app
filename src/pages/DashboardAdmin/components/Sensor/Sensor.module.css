@@ -1,8 +1,15 @@
-.cardGrid {
+.cardRowTop {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
   margin-top: 2rem;
+}
+
+.cardRowBottom {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .card {
@@ -26,10 +33,13 @@
   color: #007bff;
 }
 
-.offline {
-  color: #dc3545; /* สีแดง */
+.statusOn {
+  color: #28a745; /* green */
 }
 
+.statusOff {
+  color: #dc3545; /* red */
+}
 
 .topBar {
   margin-bottom: 1.5rem;
@@ -43,7 +53,11 @@
 
 /* Responsive fallback */
 @media (max-width: 768px) {
-  .cardGrid {
+  .cardRowTop {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cardRowBottom {
+    grid-template-columns: 1fr;
   }
 }
