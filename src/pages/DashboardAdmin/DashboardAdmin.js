@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './DashboardAdmin.module.css';
 import NavbarAdmin from '../NavbarAdmin/NavbarAdmin';
 import Sensor from './components/Sensor/Sensor';
-// import ChartGrowth from './components/Chart/ChartGrowth';
+import PlantGrowthChart from './components/Chart/PlantGrowthChart';
 
 const DashboardAdmin = () => {
   return (
@@ -10,7 +10,7 @@ const DashboardAdmin = () => {
       <NavbarAdmin />
       <div className={styles.container}>
         <Sensor />
-        {/* <ChartGrowth /> */}
+        <PlantGrowthChart />
       </div>
     </>
   );

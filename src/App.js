@@ -7,6 +7,11 @@ import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import OtpInputPage from './pages/InputOtp/OtpInputPage';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
 import DashboardAdmin from './pages/DashboardAdmin/DashboardAdmin';
+import PrimeReact from 'primereact/api';
+
+
+PrimeReact.ripple = true; 
+PrimeReact.appendTo = 'self'; 
 
 function App() {
   return (

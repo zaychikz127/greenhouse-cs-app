@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Dashboard.module.css';
 import Navbar from '../Navbar/Navbar';
 import Sensor from './components/Sensor/Sensor';
-// import ChartGrowth from './components/Chart/ChartGrowth';
+import PlantGrowthChart from './components/Chart/PlantGrowthChart';
 
 const Dashboard = () => {
   return (
@@ -10,7 +10,7 @@ const Dashboard = () => {
       <Navbar />
       <div className={styles.container}>
         <Sensor />
-        {/* <ChartGrowth /> */}
+        <PlantGrowthChart />
       </div>
     </>
   );
