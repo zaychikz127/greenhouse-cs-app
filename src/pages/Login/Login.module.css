@@ -58,3 +58,18 @@
 .backButton {
   width: 75%;
 }
+
+.passwordWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.eyeIcon {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: #666;
+    font-size: 1.2rem;
+    z-index: 2;
+}

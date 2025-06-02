@@ -1,11 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import styles from './Login.module.css';
+import { showAutoCloseError, showAutoCloseSuccess } from '../../utils/dialog/alertDialog';
+
 
 const Login = () => {
     const navigate = useNavigate();
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+
+
+    const API_URL = process.env.REACT_APP_API_URL;
+
+    const handleLogin = async () => {
+        try {
+            const res = await axios.post(`${API_URL}/api/login`, {
+                username,
+                password,
+            });
+
+            console.log(res.data);
+            navigate('/dashboard-admin');
+
+            showAutoCloseSuccess('เข้าสู่ระบบสำเร็จ', 'ยินดีต้อนรับสู่แดชบอร์ดผู้ดูแลระบบ');
+        } catch (err) {
+            const errorMessage = err.response?.data?.message || 'ไม่สามารถเข้าสู่ระบบได้';
+            console.error('Login failed:', errorMessage);
+
+            showAutoCloseError('เข้าสู่ระบบล้มเหลว', errorMessage);
+        }
+    };
+
 
     return (
         <div className={styles.container}>
@@ -14,12 +44,29 @@ const Login = () => {
 
                 <div className={styles.inputGroup}>
                     <label htmlFor="username">ชื่อผู้ใช้</label>
-                    <InputText id="username" className={styles.input} />
+                    <InputText
+                        id="username"
+                        className={styles.input}
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
                 </div>
 
                 <div className={styles.inputGroup}>
                     <label htmlFor="password">รหัสผ่าน</label>
-                    <InputText id="password" type='password' className={styles.input} toggleMask />
+                    <div className={styles.passwordWrapper}>
+                        <InputText
+                            id="password"
+                            type={showPassword ? 'text' : 'password'}
+                            className={styles.input}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <span
+                            className={`${styles.eyeIcon} pi ${showPassword ? 'pi-eye-slash' : 'pi-eye'}`}
+                            onClick={() => setShowPassword(!showPassword)}
+                        ></span>
+                    </div>
                 </div>
 
 
@@ -35,7 +82,7 @@ const Login = () => {
                     <Button
                         label="เข้าสู่ระบบ"
                         className={styles.loginButton}
-                        onClick={() => navigate('/dashboard-admin')}
+                        onClick={handleLogin}
                     />
                 </div>
 

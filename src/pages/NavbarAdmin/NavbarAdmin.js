@@ -14,6 +14,11 @@ const NavbarAdmin = () => {
       label: 'แดชบอร์ด',
       icon: 'pi pi-chart-line',
       command: () => navigate('/dashboard-admin')
+    },
+    {
+      label: 'การควบคุม',
+      icon: 'pi pi-chart-line',
+      command: () => navigate('/control')
     }
   ];
 

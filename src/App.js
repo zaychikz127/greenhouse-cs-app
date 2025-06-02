@@ -7,6 +7,7 @@ import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import OtpInputPage from './pages/InputOtp/OtpInputPage';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
 import DashboardAdmin from './pages/DashboardAdmin/DashboardAdmin';
+import Control from './pages/Control/Control';
 import PrimeReact from 'primereact/api';
 
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/input-otp" element={<OtpInputPage />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/dashboard-admin" element={<DashboardAdmin />} />
+        <Route path="/control" element={<Control />} />
       </Routes>
     </Router>
   );
