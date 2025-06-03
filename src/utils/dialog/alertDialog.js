@@ -26,4 +26,26 @@ export const showAutoCloseSuccess = (title = 'สำเร็จ', text = '', du
     });
 };
 
+// แสดง confirm dialog พร้อมรับ title, text และ callback เมื่อกดตกลง
+export const showConfirmCancel = (title, text, onConfirm) => {
+    Swal.fire({
+        icon: 'warning',
+        title,
+        text,
+        showCancelButton: true,
+        confirmButtonText: 'ตกลง',
+        cancelButtonText: 'ยกเลิก',
+        width: '500px',
+        reverseButtons: true, 
+        customClass: {
+            confirmButton: 'swal2-confirm-blue', 
+            cancelButton: 'swal2-cancel-gray',   
+        },
+    }).then((result) => {
+        if (result.isConfirmed) {
+            onConfirm();
+        }
+    });
+};
+
 

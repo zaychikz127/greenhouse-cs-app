@@ -71,6 +71,7 @@ const NavbarAdmin = () => {
               icon="pi pi-sign-out"
               className="p-button-text p-button-danger"
               onClick={() => {
+                localStorage.removeItem('token'); // remove token when logout
                 setVisible(false);
                 navigate('/');
               }}
