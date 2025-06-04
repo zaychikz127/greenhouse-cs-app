@@ -27,6 +27,12 @@ const Login = () => {
     }, [navigate]);
 
     const handleLogin = async () => {
+        // ✅ ตรวจสอบก่อนยิง API
+        if (!username || !password) {
+            showAutoCloseError('ข้อมูลไม่ครบถ้วน', 'กรุณากรอกชื่อผู้ใช้และรหัสผ่าน');
+            return;
+        }
+
         try {
             const res = await axios.post(`${API_URL}/api/login`, {
                 username,
@@ -38,15 +44,26 @@ const Login = () => {
 
             showAutoCloseSuccess('เข้าสู่ระบบสำเร็จ', 'ยินดีต้อนรับสู่แดชบอร์ดผู้ดูแลระบบ');
             navigate('/dashboard-admin', { replace: true });
-        } catch (err) {
-            const errorMessage = err.response?.data?.message || 'ไม่สามารถเข้าสู่ระบบได้';
-            console.error('Login failed:', errorMessage);
 
-            showAutoCloseError('เข้าสู่ระบบล้มเหลว', errorMessage);
+        } catch (err) {
+            const status = err.response?.status;
+            const message = err.response?.data?.message || 'ไม่สามารถเข้าสู่ระบบได้';
+
+            console.error('Login failed:', message);
+
+            // ✅ แสดงข้อความให้หลากหลายตามสถานะ
+            if (status === 400) {
+                showAutoCloseError('ข้อมูลไม่ครบถ้วน', message); // เช่น: กรุณากรอกชื่อผู้ใช้และรหัสผ่าน
+            } else if (status === 401) {
+                showAutoCloseError('เข้าสู่ระบบล้มเหลว', message); // เช่น: ไม่พบผู้ใช้, รหัสผ่านผิด
+            } else if (status === 500) {
+                showAutoCloseError('ข้อผิดพลาดของระบบ', 'เกิดข้อผิดพลาดที่เซิร์ฟเวอร์ กรุณาลองใหม่ภายหลัง');
+            } else {
+                showAutoCloseError('ไม่สามารถเข้าสู่ระบบได้', message);
+            }
         }
     };
 
-    // ✅ ป้องกันไม่ให้ render หน้า login ขณะกำลังตรวจสอบ token
     if (checkingAuth) {
         return null; 
     }

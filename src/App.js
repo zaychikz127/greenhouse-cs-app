@@ -9,7 +9,8 @@ import ResetPassword from './pages/ResetPassword/ResetPassword';
 import DashboardAdmin from './pages/DashboardAdmin/DashboardAdmin';
 import Control from './pages/Control/Control';
 import PrimeReact from 'primereact/api';
-import PrivateRoute from './components/PrivateRoute'; // import เพิ่ม
+import PrivateRoute from './components/PrivateRoute'; 
+import ChangePassword from './pages/ChangePassword/ChangePassword';
 
 
 PrimeReact.ripple = true;
@@ -36,6 +37,12 @@ function App() {
         <Route path="/control" element={
           <PrivateRoute>
             <Control />
+          </PrivateRoute>
+        } />
+
+        <Route path="/change-password" element={
+          <PrivateRoute>
+            <ChangePassword />
           </PrivateRoute>
         } />
 

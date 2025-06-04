@@ -15,13 +15,31 @@ const OtpInputPage = () => {
     const [countdown, setCountdown] = useState(300); // 300
 
     useEffect(() => {
-        const storedEmail = localStorage.getItem('otpEmail');
-        if (!storedEmail) {
-            showAutoCloseError('ข้อผิดพลาด', 'ไม่พบอีเมลที่ใช้ขอ OTP');
-            navigate('/login');
-        } else {
-            setEmail(storedEmail);
+        const startTime = localStorage.getItem('otpStartTime');
+
+        // ✅ ถ้าไม่มี otpStartTime → redirect กลับไปหน้า login
+        if (!startTime) {
+            navigate('/login', { replace: true });
+            return;
         }
+
+        // ✅ ถ้ามี otpStartTime → ให้เริ่มนับเวลาต่อเนื่องตามเวลาที่เก็บไว้
+        const startTimestamp = parseInt(startTime, 10);
+        const now = Date.now();
+        const elapsedSeconds = Math.floor((now - startTimestamp) / 1000);
+
+        const remainingTime = 300 - elapsedSeconds; // 300 = 5 นาที
+
+        if (remainingTime <= 0) {
+            localStorage.removeItem('otpStartTime');
+            localStorage.removeItem('otpEmail');
+            showAutoCloseError('หมดเวลา', 'รหัส OTP หมดอายุแล้ว');
+            navigate('/login', { replace: true });
+            return;
+        }
+
+        setEmail(localStorage.getItem('otpEmail') || '');
+        setCountdown(remainingTime);
 
         const interval = setInterval(() => {
             setCountdown((prev) => {
@@ -39,6 +57,7 @@ const OtpInputPage = () => {
     useEffect(() => {
         if (countdown === 0) {
             localStorage.removeItem('otpEmail');
+            localStorage.removeItem('otpStartTime');
             showAutoCloseError('หมดเวลา', 'รหัส OTP หมดอายุแล้ว');
             navigate('/login');
         }
@@ -64,6 +83,7 @@ const OtpInputPage = () => {
             });
 
             if (response.status === 200) {
+                localStorage.removeItem('otpStartTime');
                 showAutoCloseSuccess('สำเร็จ', 'ยืนยันรหัส OTP สำเร็จ');
                 navigate('/reset-password');
             }
@@ -121,6 +141,7 @@ const OtpInputPage = () => {
                             severity="secondary"
                             onClick={() => {
                                 localStorage.removeItem('otpEmail');
+                                localStorage.removeItem('otpStartTime');
                                 navigate('/login');
                             }}
                         />

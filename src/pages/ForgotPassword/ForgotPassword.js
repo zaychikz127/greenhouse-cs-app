@@ -24,8 +24,10 @@ const ForgotPassword = () => {
             const response = await axios.post(`${API_URL}/api/reset-password`, { email });
 
             if (response.status === 200) {
-                showAutoCloseSuccess('สำเร็จ', 'ส่งรหัส OTP ไปยังอีเมลของคุณเรียบร้อยแล้ว');
+                const startTime = Date.now().toString();
+                localStorage.setItem('otpStartTime', startTime);
                 localStorage.setItem('otpEmail', email);
+                showAutoCloseSuccess('สำเร็จ', 'ส่งรหัส OTP ไปยังอีเมลของคุณเรียบร้อยแล้ว');
                 navigate('/input-otp', { state: { email } });
             }
         } catch (error) {
