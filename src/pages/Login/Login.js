@@ -16,7 +16,6 @@ const Login = () => {
 
     const API_URL = process.env.REACT_APP_API_URL;
 
-    // ✅ ตรวจสอบ token ถ้ามีให้ redirect ไป dashboard-admin
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
@@ -27,7 +26,6 @@ const Login = () => {
     }, [navigate]);
 
     const handleLogin = async () => {
-        // ✅ ตรวจสอบก่อนยิง API
         if (!username || !password) {
             showAutoCloseError('ข้อมูลไม่ครบถ้วน', 'กรุณากรอกชื่อผู้ใช้และรหัสผ่าน');
             return;
@@ -39,7 +37,6 @@ const Login = () => {
                 password,
             });
 
-            // ✅ บันทึก token
             localStorage.setItem('token', res.data.token);
 
             showAutoCloseSuccess('เข้าสู่ระบบสำเร็จ', 'ยินดีต้อนรับสู่แดชบอร์ดผู้ดูแลระบบ');
@@ -51,11 +48,10 @@ const Login = () => {
 
             console.error('Login failed:', message);
 
-            // ✅ แสดงข้อความให้หลากหลายตามสถานะ
             if (status === 400) {
-                showAutoCloseError('ข้อมูลไม่ครบถ้วน', message); // เช่น: กรุณากรอกชื่อผู้ใช้และรหัสผ่าน
+                showAutoCloseError('ข้อมูลไม่ครบถ้วน', message); 
             } else if (status === 401) {
-                showAutoCloseError('เข้าสู่ระบบล้มเหลว', message); // เช่น: ไม่พบผู้ใช้, รหัสผ่านผิด
+                showAutoCloseError('เข้าสู่ระบบล้มเหลว', message); 
             } else if (status === 500) {
                 showAutoCloseError('ข้อผิดพลาดของระบบ', 'เกิดข้อผิดพลาดที่เซิร์ฟเวอร์ กรุณาลองใหม่ภายหลัง');
             } else {

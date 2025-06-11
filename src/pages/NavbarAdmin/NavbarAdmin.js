@@ -16,7 +16,7 @@ const NavbarAdmin = () => {
       command: () => navigate('/dashboard-admin')
     },
     {
-      label: 'ควบคุมแท่นหมุน',
+      label: 'ควบคุมแท่นปลูก',
       icon: 'pi pi-cog',
       command: () => navigate('/rotary-tower-list')
     }

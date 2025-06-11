@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './RotaryTowerList.module.css';
 import NavbarAdmin from '../NavbarAdmin/NavbarAdmin';
 import { Button } from 'primereact/button';
 import { ProgressSpinner } from 'primereact/progressspinner';
+import { showAutoCloseError, showAutoCloseSuccess } from '../../utils/dialog/alertDialog';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 const RotaryTowerList = () => {
   const [rotaryTowers, setRotaryTowers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
@@ -21,6 +24,31 @@ const RotaryTowerList = () => {
       .catch(err => console.error(err))
       .finally(() => setLoading(false));
   }, []);
+
+  const handleControlClick = (towerId, towerName) => {
+    fetch(`${API_URL}/api/control-tower/${towerId}`, {
+      method: 'PUT',
+    })
+      .then(async res => {
+        if (res.status === 409) {
+          showAutoCloseError('ข้อผิดพลาด', `${towerName} กำลังถูกควบคุมจากผู้ใช้อื่น`);
+          throw new Error('Tower is already controlled');
+        }
+
+        if (!res.ok) {
+          throw new Error('Failed to update control status');
+        }
+
+        return res.json();
+      })
+      .then(() => {
+        showAutoCloseSuccess('เข้าควบคุมสำเร็จ', `กำลังควบคุมแท่นปลูก ${towerName}`);
+        navigate(`/control-tower/${towerId}`);
+      })
+      .catch(err => {
+        console.error('Error updating control status:', err);
+      });
+  };
 
   return (
     <>
@@ -35,9 +63,8 @@ const RotaryTowerList = () => {
             {rotaryTowers.map(tower => (
               <div key={tower.id} className={styles.card}>
                 <div
-                  className={`${styles.label} ${
-                    tower.status === 'offline' ? styles.offline : ''
-                  }`}
+                  className={`${styles.label} ${tower.status === 'offline' ? styles.offline : ''
+                    }`}
                 >
                   {tower.name}
                 </div>
@@ -45,7 +72,7 @@ const RotaryTowerList = () => {
                   <Button
                     label="ควบคุม"
                     className="p-button-primary p-button-sm"
-                    onClick={() => alert(`ควบคุมแท่นปลูก: ${tower.name}`)}
+                    onClick={() => handleControlClick(tower.id, tower.name)}
                   />
                 </div>
               </div>

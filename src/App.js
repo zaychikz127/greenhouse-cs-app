@@ -7,11 +7,11 @@ import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import OtpInputPage from './pages/InputOtp/OtpInputPage';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
 import DashboardAdmin from './pages/DashboardAdmin/DashboardAdmin';
-import ControlTower from './pages/ControlTower/ControlTower';
 import PrimeReact from 'primereact/api';
 import PrivateRoute from './components/PrivateRoute'; 
 import ChangePassword from './pages/ChangePassword/ChangePassword';
 import RotaryTowerList from './pages/RotaryTowerList/RotaryTowerList';
+import ControlTower from './pages/ControlTower/ControlTower';
 
 
 PrimeReact.ripple = true;
@@ -28,7 +28,6 @@ function App() {
         <Route path="/input-otp" element={<OtpInputPage />} />
         <Route path="/reset-password" element={<ResetPassword />} />
 
-        {/* PrivateRoute */}
         <Route path="/dashboard-admin" element={
           <PrivateRoute>
             <DashboardAdmin />
@@ -47,7 +46,7 @@ function App() {
           </PrivateRoute>
         } />
 
-        <Route path="/control-tower" element={
+        <Route path="/control-tower/:towerId" element={
           <PrivateRoute>
             <ControlTower />
           </PrivateRoute>
