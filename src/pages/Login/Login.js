@@ -12,13 +12,16 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const [checkingAuth, setCheckingAuth] = useState(true); 
+    const [checkingAuth, setCheckingAuth] = useState(true);
+    const [isLoggingIn, setIsLoggingIn] = useState(false);
+
 
     const API_URL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
+            showAutoCloseSuccess('เข้าสู่ระบบสำเร็จ', 'ยินดีต้อนรับสู่แดชบอร์ดผู้ดูแลระบบ');
             navigate('/dashboard-admin');
         } else {
             setCheckingAuth(false);
@@ -27,9 +30,11 @@ const Login = () => {
 
     const handleLogin = async () => {
         if (!username || !password) {
-            showAutoCloseError('ข้อมูลไม่ครบถ้วน', 'กรุณากรอกชื่อผู้ใช้และรหัสผ่าน');
+            showAutoCloseError('ไม่สามารถเข้าสู่ระบบได้', 'กรุณากรอกชื่อผู้ใช้และรหัสผ่าน');
             return;
         }
+
+        setIsLoggingIn(true);
 
         try {
             const res = await axios.post(`${API_URL}/api/login`, {
@@ -44,24 +49,23 @@ const Login = () => {
 
         } catch (err) {
             const status = err.response?.status;
-            const message = err.response?.data?.message || 'ไม่สามารถเข้าสู่ระบบได้';
+            const message = err.response?.data?.message || 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง';
 
             console.error('Login failed:', message);
 
-            if (status === 400) {
-                showAutoCloseError('ข้อมูลไม่ครบถ้วน', message); 
-            } else if (status === 401) {
-                showAutoCloseError('เข้าสู่ระบบล้มเหลว', message); 
-            } else if (status === 500) {
-                showAutoCloseError('ข้อผิดพลาดของระบบ', 'เกิดข้อผิดพลาดที่เซิร์ฟเวอร์ กรุณาลองใหม่ภายหลัง');
-            } else {
+            if (status === 400 || status === 401 || status === 500) {
                 showAutoCloseError('ไม่สามารถเข้าสู่ระบบได้', message);
+            } else {
+                showAutoCloseError('ไม่สามารถเข้าสู่ระบบได้', 'เกิดข้อผิดพลาดที่เซิร์ฟเวอร์');
             }
+
+        } finally {
+            setIsLoggingIn(false);
         }
     };
 
     if (checkingAuth) {
-        return null; 
+        return null;
     }
 
     return (
@@ -109,6 +113,7 @@ const Login = () => {
                         label="เข้าสู่ระบบ"
                         className={styles.loginButton}
                         onClick={handleLogin}
+                        disabled={isLoggingIn}
                     />
                 </div>
 

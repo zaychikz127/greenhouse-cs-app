@@ -11,6 +11,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 const RotaryTowerList = () => {
   const [rotaryTowers, setRotaryTowers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [controllingTowerId, setControllingTowerId] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,6 +27,8 @@ const RotaryTowerList = () => {
   }, []);
 
   const handleControlClick = (towerId, towerName) => {
+    setControllingTowerId(towerId);
+
     fetch(`${API_URL}/api/control-tower/${towerId}`, {
       method: 'PUT',
     })
@@ -47,6 +50,9 @@ const RotaryTowerList = () => {
       })
       .catch(err => {
         console.error('Error updating control status:', err);
+      })
+      .finally(() => {
+        setControllingTowerId(null);
       });
   };
 
@@ -73,6 +79,7 @@ const RotaryTowerList = () => {
                     label="ควบคุม"
                     className="p-button-primary p-button-sm"
                     onClick={() => handleControlClick(tower.id, tower.name)}
+                    disabled={controllingTowerId === tower.id}
                   />
                 </div>
               </div>

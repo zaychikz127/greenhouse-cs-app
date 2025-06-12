@@ -91,7 +91,7 @@ const ControlTower = () => {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
         handleExit();
-      }, 20000);
+      }, 300000); // 5 นาที
     };
 
     const handleBeforeUnload = () => {
