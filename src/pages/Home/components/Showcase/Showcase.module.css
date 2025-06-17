@@ -11,12 +11,13 @@
 
 .title {
   color: black;
-  margin-bottom: 0.5rem; 
+  margin-bottom: 1rem; 
 }
 
 .description {
   color: rgb(58, 58, 58);
-  margin-bottom: 0.5rem; 
+  margin-bottom: 1rem;
+  margin-top: 2rem; 
 }
 
 .galleriaWrapper {
@@ -28,8 +29,10 @@
 .image {
   width: 100%;
   max-width: 500px;
+  height: 300px;         /* ✅ ความสูงคงที่ */
+  object-fit: cover;     /* ✅ ปรับให้ภาพไม่ผิดสัดส่วน */
   border-radius: 12px;
-  object-fit: cover;
   margin-top: 1rem;
 }
+
 

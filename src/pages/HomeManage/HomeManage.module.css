@@ -34,24 +34,24 @@
   width: 100%;
 }
 
-.loginButtonWrapper {
+.saveButtonWrapper {
   margin-bottom: 1rem;
   justify-content: center;
   display: flex;
+  margin-top: 2rem;
 }
 
-.loginButton {
-  width: 40%;
+.saveButton {
+  width: 50%;
 }
 
 .ImageButtonWarpper {
-  margin-top: 2rem;
   margin-bottom: 1rem;
   display: flex;
   justify-content: center;
 }
 
 .imageButton {
-  width: 40%;
+  width: 50%;
 }
 

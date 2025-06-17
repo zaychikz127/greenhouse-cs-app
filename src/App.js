@@ -13,7 +13,7 @@ import ChangePassword from './pages/ChangePassword/ChangePassword';
 import RotaryTowerList from './pages/RotaryTowerList/RotaryTowerList';
 import ControlTower from './pages/ControlTower/ControlTower';
 import HomeManage from './pages/HomeManage/HomeManage';
-import HomeImageManage from './pages/HomeImageMange/HomeImageManage';
+import HomeImageManage from './pages/HomeImageManage/HomeImageManage';
 
 
 PrimeReact.ripple = true;
