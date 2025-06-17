@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Menubar } from 'primereact/menubar';
 import { Button } from 'primereact/button';
 import { Sidebar } from 'primereact/sidebar';
 import { useNavigate } from 'react-router-dom';
@@ -7,44 +6,74 @@ import styles from './NavbarAdmin.module.css';
 
 const NavbarAdmin = () => {
   const navigate = useNavigate();
-  const [visible, setVisible] = useState(false);
-
-  const items = [
-    {
-      label: 'แดชบอร์ด',
-      icon: 'pi pi-chart-line',
-      command: () => navigate('/dashboard-admin')
-    },
-    {
-      label: 'ควบคุมแท่นปลูก',
-      icon: 'pi pi-cog',
-      command: () => navigate('/rotary-tower-list')
-    }
-  ];
+  const [leftVisible, setLeftVisible] = useState(false);
+  const [rightVisible, setRightVisible] = useState(false);
 
   const handleMenuClick = (path) => {
-    setVisible(false);
+    setLeftVisible(false);
+    setRightVisible(false);
     navigate(path);
   };
 
-  const end = (
-    <div className={styles.buttons}>
+  return (
+    <div className={styles.navbarContainer}>
+      {/* ปุ่มเปิดเมนูฝั่งซ้าย */}
+      <Button
+        label="เมนูหลัก"
+        icon="pi pi-bars"
+        className="p-button-text p-button-sm p-button-secondary"
+        onClick={() => setLeftVisible(true)}
+      />
+
+      {/* ปุ่มเปิดเมนูฝั่งขวา */}
       <Button
         label="ผู้ดูแลระบบ"
         icon="pi pi-user"
         className="p-button-text p-button-sm p-button-secondary"
-        onClick={() => setVisible(true)}
+        onClick={() => setRightVisible(true)}
       />
-    </div>
-  );
 
-  return (
-    <div className={styles.sticky}>
-      <Menubar model={items} end={end} />
+      {/* Sidebar ฝั่งซ้าย (เมนูหลัก) */}
       <Sidebar
-        visible={visible}
+        visible={leftVisible}
+        position="left"
+        onHide={() => setLeftVisible(false)}
+        style={{ width: '250px' }}
+      >
+        <h3>เมนูหลัก</h3>
+        <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
+          <li>
+            <Button
+              label="แดชบอร์ด"
+              icon="pi pi-chart-line"
+              className="p-button-text p-button-secondary"
+              onClick={() => handleMenuClick('/dashboard-admin')}
+            />
+          </li>
+          <li>
+            <Button
+              label="ควบคุมแท่นปลูก"
+              icon="pi pi-cog"
+              className="p-button-text p-button-secondary"
+              onClick={() => handleMenuClick('/rotary-tower-list')}
+            />
+          </li>
+          <li>
+            <Button
+              label="จัดการหน้าแรก"
+              icon="pi pi-cog"
+              className="p-button-text p-button-secondary"
+              onClick={() => handleMenuClick('/home-manage')}
+            />
+          </li>
+        </ul>
+      </Sidebar>
+
+      {/* Sidebar ฝั่งขวา (เมนูผู้ดูแลระบบ) */}
+      <Sidebar
+        visible={rightVisible}
         position="right"
-        onHide={() => setVisible(false)}
+        onHide={() => setRightVisible(false)}
         style={{ width: '250px' }}
       >
         <h3>เมนูผู้ดูแลระบบ</h3>
@@ -71,8 +100,8 @@ const NavbarAdmin = () => {
               icon="pi pi-sign-out"
               className="p-button-text p-button-danger"
               onClick={() => {
-                localStorage.removeItem('token'); // remove token when logout
-                setVisible(false);
+                localStorage.removeItem('token');
+                setRightVisible(false);
                 navigate('/');
               }}
             />

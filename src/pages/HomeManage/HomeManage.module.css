@@ -11,8 +11,8 @@
   border-radius: 1rem;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 500px;
-  margin-top: 5rem;
+  max-width: 700px;
+  margin-top: 2rem;
 }
 
 .title {
@@ -34,12 +34,6 @@
   width: 100%;
 }
 
-.forgotPasswordWrapper {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
 .loginButtonWrapper {
   margin-bottom: 1rem;
   justify-content: center;
@@ -47,24 +41,17 @@
 }
 
 .loginButton {
-  width: 75%;
+  width: 40%;
 }
 
-.backButton {
-  width: 75%;
+.ImageButtonWarpper {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
 }
 
-.passwordWrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
+.imageButton {
+  width: 40%;
 }
 
-.eyeIcon {
-    position: absolute;
-    right: 10px;
-    cursor: pointer;
-    color: #666;
-    font-size: 1.2rem;
-    z-index: 2;
-}

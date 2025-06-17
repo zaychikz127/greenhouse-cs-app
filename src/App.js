@@ -12,6 +12,8 @@ import PrivateRoute from './components/PrivateRoute';
 import ChangePassword from './pages/ChangePassword/ChangePassword';
 import RotaryTowerList from './pages/RotaryTowerList/RotaryTowerList';
 import ControlTower from './pages/ControlTower/ControlTower';
+import HomeManage from './pages/HomeManage/HomeManage';
+import HomeImageManage from './pages/HomeImageMange/HomeImageManage';
 
 
 PrimeReact.ripple = true;
@@ -49,6 +51,18 @@ function App() {
         <Route path="/control-tower/:towerId" element={
           <PrivateRoute>
             <ControlTower />
+          </PrivateRoute>
+        } />
+
+        <Route path="/home-manage" element={
+          <PrivateRoute>
+            <HomeManage />
+          </PrivateRoute>
+        } />
+
+        <Route path="/home-image-manage" element={
+          <PrivateRoute>
+            <HomeImageManage />
           </PrivateRoute>
         } />
 
