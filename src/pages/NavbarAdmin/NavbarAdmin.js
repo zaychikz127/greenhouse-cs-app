@@ -53,7 +53,7 @@ const NavbarAdmin = () => {
           <li>
             <Button
               label="ควบคุมแท่นปลูก"
-              icon="pi pi-cog"
+              icon="pi pi-sync"
               className="p-button-text p-button-secondary"
               onClick={() => handleMenuClick('/rotary-tower-list')}
             />
@@ -61,7 +61,7 @@ const NavbarAdmin = () => {
           <li>
             <Button
               label="จัดการหน้าแรก"
-              icon="pi pi-cog"
+              icon="pi pi-pen-to-square"
               className="p-button-text p-button-secondary"
               onClick={() => handleMenuClick('/home-manage')}
             />
